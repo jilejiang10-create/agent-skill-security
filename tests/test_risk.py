@@ -11,5 +11,6 @@ def test_calculate_risk():
 
     result = calculate_risk(findings)
 
-    assert isinstance(result, int)
-    assert result > 0
+    assert isinstance(result, dict)
+    assert "risk_score" in result
+    assert "risk_level" in result
