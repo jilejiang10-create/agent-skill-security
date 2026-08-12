@@ -2,7 +2,7 @@ import argparse
 from pathlib import Path
 
 from .scanner import scan_directory
-
+from .report import generate_report
 
 def main():
     parser = argparse.ArgumentParser(
@@ -22,22 +22,11 @@ def main():
         print("Target path does not exist")
         return
 
-    results = scan_directory(str(target))
+        results = scan_directory(str(target))
 
-    if not results:
-        print("No security issues found.")
-        return
+        report = generate_report(results)
 
-    print("\nSecurity findings:\n")
-
-    for file_name, findings in results.items():
-        print(f"[FILE] {file_name}")
-
-        for finding in findings:
-            print(
-                f"- {finding['category']}: "
-                f"{finding['match']}"
-            )
+        print(report)
 
 
 if __name__ == "__main__":
