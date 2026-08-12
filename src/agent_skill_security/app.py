@@ -1,15 +1,16 @@
 import sys
 from pathlib import Path
 
-import streamlit as st
-
 SRC_PATH = Path(__file__).resolve().parent
-
 if str(SRC_PATH) not in sys.path:
     sys.path.insert(0, str(SRC_PATH))
 
+import streamlit as st
+
 from scanner import scan_directory
 from report import generate_report
+
+
 
 
 st.set_page_config(
