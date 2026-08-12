@@ -35,7 +35,7 @@ def generate_report(results: list) -> str:
 
     for data in results:
 
-risk = data.get("risk", 0) if isinstance(data, dict) else 0
+        risk = data.get("risk", 0) if isinstance(data, dict) else 0
 
         total_risk += risk
 
@@ -46,7 +46,6 @@ risk = data.get("risk", 0) if isinstance(data, dict) else 0
         lines.append(
             f"Risk Score: {risk}/100"
         )
-
 
         for finding in data.get("findings", []):
 
