@@ -1,7 +1,7 @@
 from datetime import datetime
 
 
-def generate_report(results: dict) -> str:
+def generate_report(results: list) -> str:
     """
     Generate security scan report
     """
@@ -33,14 +33,14 @@ def generate_report(results: dict) -> str:
     lines.append("-" * 40)
 
 
-    for filename, data in results.items():
+    for data in results:
 
-        risk = data.get("risk", 0)
+risk = data.get("risk", 0) if isinstance(data, dict) else 0
 
         total_risk += risk
 
         lines.append(
-            f"\nFile: {filename}"
+            f"File: {data.get('file', 'unknown')}"
         )
 
         lines.append(
