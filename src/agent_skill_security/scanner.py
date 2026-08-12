@@ -1,8 +1,8 @@
 from pathlib import Path
 import re
 
-from rules import scan_prompt
-from risk import calculate_risk
+from agent_skill_security.rules import scan_prompt
+from agent_skill_security.risk import calculate_risk
 
 DANGEROUS_PATTERNS = {
     "hardcoded_api_key": [
