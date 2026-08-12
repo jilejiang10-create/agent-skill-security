@@ -47,7 +47,7 @@ def generate_report(results: list) -> str:
             f"Risk Score: {risk}/100"
         )
 
-        for finding in data.get("findings", []):
+        for finding in data.get("findings", []) if isinstance(data, dict) else []:
 
             lines.append(
                 f"- {finding.get('category')}: "
