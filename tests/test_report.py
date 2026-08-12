@@ -10,7 +10,13 @@ def test_generate_report():
                     "match": "API_KEY"
                 }
             ],
-            "risk": 80
+            "risk": {
+                "risk_score": 80,
+                "risk_level": "high",
+                "issues": [
+                    "secret"
+                ]
+            }
         }
     }
 
