@@ -1,7 +1,15 @@
+import sys
+from pathlib import Path
+
 import streamlit as st
 
-from agent_skill_security.scanner import scan_directory
-from agent_skill_security.report import generate_report
+SRC_PATH = Path(__file__).resolve().parent
+
+if str(SRC_PATH) not in sys.path:
+    sys.path.insert(0, str(SRC_PATH))
+
+from scanner import scan_directory
+from report import generate_report
 
 
 st.set_page_config(
