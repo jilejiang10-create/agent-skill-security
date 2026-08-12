@@ -1,6 +1,7 @@
 from pathlib import Path
 import re
 from .rules import scan_prompt
+from .risk import calculate_risk
 DANGEROUS_PATTERNS = {
     "hardcoded_api_key": [
         r"sk-[A-Za-z0-9_-]{20,}",
@@ -91,10 +92,13 @@ def scan_directory(directory: str):
 
         findings = scan_file(file_path)
 
-        if findings:
-            results[str(file_path)] = findings
+if findings:
+    results[str(file_path)] = {
+        "findings": findings,
+        "risk": calculate_risk(findings)
+    }
 
-    return results
+return results
 
 
 if __name__ == "__main__":
