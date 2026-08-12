@@ -7,6 +7,23 @@ PROMPT_INJECTION_PATTERNS = [
 ]
 
 
+SECRET_PATTERNS = [
+    "sk-",
+    "api_key",
+    "apikey",
+    "password",
+    "token"
+]
+
+
+DANGEROUS_PATTERNS = [
+    "os.system",
+    "subprocess",
+    "rm -rf",
+    "eval("
+]
+
+
 def scan_prompt(text: str):
     findings = []
 
@@ -18,6 +35,22 @@ def scan_prompt(text: str):
                 "type": "prompt_injection",
                 "match": pattern,
                 "severity": "high"
+            })
+
+    for pattern in SECRET_PATTERNS:
+        if pattern in lower_text:
+            findings.append({
+                "type": "secret_exposure",
+                "match": pattern,
+                "severity": "high"
+            })
+
+    for pattern in DANGEROUS_PATTERNS:
+        if pattern in lower_text:
+            findings.append({
+                "type": "dangerous_code",
+                "match": pattern,
+                "severity": "medium"
             })
 
     return findings
