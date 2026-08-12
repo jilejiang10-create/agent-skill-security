@@ -1,6 +1,6 @@
 from pathlib import Path
 import re
-
+from .rules import scan_prompt
 DANGEROUS_PATTERNS = {
     "hardcoded_api_key": [
         r"sk-[A-Za-z0-9_-]{20,}",
@@ -37,6 +37,8 @@ DANGEROUS_PATTERNS = {
 def scan_text(text: str):
     findings = []
 
+    findings.extend(scan_prompt(text))
+    
     for category, patterns in DANGEROUS_PATTERNS.items():
         for pattern in patterns:
             for match in re.finditer(pattern, text, flags=re.IGNORECASE):
