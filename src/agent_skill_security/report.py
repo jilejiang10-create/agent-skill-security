@@ -40,8 +40,8 @@ def generate_report(results: list) -> str:
         total_risk += risk
 
         lines.append(
-            f"File: {data.get('file', 'unknown')}"
-        )
+        f"File: {data}"
+)
 
         lines.append(
             f"Risk Score: {risk}/100"
