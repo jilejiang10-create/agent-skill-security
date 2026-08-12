@@ -92,13 +92,13 @@ def scan_directory(directory: str):
 
         findings = scan_file(file_path)
 
-if findings:
-    results[str(file_path)] = {
-        "findings": findings,
-        "risk": calculate_risk(findings)
-    }
+        if findings:
+            results[str(file_path)] = {
+                "findings": findings,
+                "risk": calculate_risk(findings)
+            }
 
-return results
+    return results
 
 
 if __name__ == "__main__":
