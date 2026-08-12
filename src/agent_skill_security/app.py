@@ -1,7 +1,7 @@
 import streamlit as st
 
-from .scanner import scan_directory
-from .report import generate_report
+from scanner import scan_directory
+from report import generate_report
 
 
 st.set_page_config(
