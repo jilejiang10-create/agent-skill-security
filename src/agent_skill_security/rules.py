@@ -31,26 +31,29 @@ def scan_prompt(text: str):
 
     for pattern in PROMPT_INJECTION_PATTERNS:
         if pattern in lower_text:
-            findings.append({
-                "type": "prompt_injection",
-                "match": pattern,
-                "severity": "high"
-            })
+            if not any(f["type"] == "prompt_injection" for f in findings):
+                findings.append({
+                    "type": "prompt_injection",
+                    "match": pattern,
+                    "severity": "high"
+                })
 
     for pattern in SECRET_PATTERNS:
         if pattern in lower_text:
-            findings.append({
-                "type": "secret_exposure",
-                "match": pattern,
-                "severity": "high"
-            })
+            if not any(f["type"] == "secret_exposure" for f in findings):
+                findings.append({
+                    "type": "secret_exposure",
+                    "match": pattern,
+                    "severity": "high"
+                })
 
     for pattern in DANGEROUS_PATTERNS:
         if pattern in lower_text:
-            findings.append({
-                "type": "dangerous_code",
-                "match": pattern,
-                "severity": "medium"
-            })
+            if not any(f["type"] == "dangerous_code" for f in findings):
+                findings.append({
+                    "type": "dangerous_code",
+                    "match": pattern,
+                    "severity": "medium"
+                })
 
     return findings
