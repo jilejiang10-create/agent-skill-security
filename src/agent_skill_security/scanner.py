@@ -59,13 +59,17 @@ def scan_file(path: str):
 
             if re.search(pattern, content, re.IGNORECASE):
 
-                findings.append(
-                    {
-                        "file": path,
-                        "category": category,
-                        "severity": "high"
-                    }
-                )
+                    if not any(
+                        f["category"] == category
+                        for f in findings
+                    ):
+                        findings.append(
+                            {
+                                "file": path,
+                                "category": category,
+                                "severity": "high"
+                            }
+                        )
 
                 break
 
