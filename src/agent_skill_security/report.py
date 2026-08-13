@@ -40,14 +40,30 @@ def generate_report(results: list) -> str:
         results = [results]
     
     
-    for data in results:
-        risk = data.get("risk", 0) if isinstance(data, dict) else 0
+for data in results:
 
-        total_risk += risk
+    if not isinstance(data, dict):
+        continue
 
-        lines.append(
-        f"File: {data}"
-)
+    file_name = data.get("file", "unknown")
+
+    risk = data.get("risk", {})
+
+    if isinstance(risk, dict):
+        risk_score = risk.get("risk_score", 0)
+    else:
+        risk_score = 0
+
+    total_risk += risk_score
+
+
+    lines.append(
+        f"File: {file_name}"
+    )
+
+    lines.append(
+        f"Risk Score: {risk_score}/100"
+    )
 
         lines.append(
             f"Risk Score: {risk}/100"
