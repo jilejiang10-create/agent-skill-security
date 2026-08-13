@@ -47,7 +47,7 @@ def generate_report(results: list) -> str:
         
             file_name = data.get("file", "unknown")
             if file_name == "unknown":
-            file_name = data.get("path", "unknown")
+                file_name = data.get("path", "unknown")
             risk = data.get("risk", {})
         
             if isinstance(risk, dict):
