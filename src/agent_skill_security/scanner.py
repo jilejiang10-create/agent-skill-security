@@ -85,7 +85,7 @@ def scan_file(path: str):
                     and f.get("match") == item.get("match")
                     for f in findings
                 ):
-                findings.append(item)
+                    findings.append(item)
 
 
     return findings
