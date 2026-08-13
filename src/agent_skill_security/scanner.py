@@ -80,9 +80,11 @@ def scan_file(path: str):
     if prompt_result:
         for item in prompt_result:
             if not any(
-                f.get("type") == item.get("type")
-                for f in findings
-            ):
+                if not any(
+                    f.get("type") == item.get("type")
+                    and f.get("match") == item.get("match")
+                    for f in findings
+                ):
                 findings.append(item)
 
 
