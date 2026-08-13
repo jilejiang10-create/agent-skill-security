@@ -2,11 +2,11 @@ from typing import List, Dict
 
 
 RISK_WEIGHTS = {
-    "hardcoded_api_key": 40,
-    "dangerous_shell": 35,
-    "network_request": 20,
-    "file_system_write": 25,
-    "prompt_injection": 45,
+    "secret_exposure": 30,
+    "dangerous_shell": 25,
+    "network_request": 15,
+    "file_system_write": 15,
+    "prompt_injection": 20,
 }
 
 
