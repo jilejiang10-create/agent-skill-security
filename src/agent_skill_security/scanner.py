@@ -90,16 +90,25 @@ def scan_directory(directory: str):
     results = []
 
     root = Path(directory)
-
+    IGNORE_DIRS = {
+        ".git",
+        "__pycache__",
+        ".pytest_cache"
+    }
 
     for file in root.rglob("*"):
-
+    
+        if any(
+            part in IGNORE_DIRS
+            for part in file.parts
+        ):
+            continue
+    
         if file.is_file():
-
+    
             results.extend(
                 scan_file(str(file))
             )
-
 
     risk = calculate_risk(results)
 
