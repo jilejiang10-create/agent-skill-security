@@ -80,7 +80,7 @@ def scan_file(path: str):
     if prompt_result:
         for item in prompt_result:
             if not any(
-                f["type"] == item["type"]
+                f.get("type") == item.get("type")
                 for f in findings
             ):
                 findings.append(item)
