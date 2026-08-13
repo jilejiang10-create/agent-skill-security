@@ -44,4 +44,4 @@ if st.button("开始安全扫描"):
 
     st.subheader("Security Report")
 
-    st.json(report)
+    st.text(report)
