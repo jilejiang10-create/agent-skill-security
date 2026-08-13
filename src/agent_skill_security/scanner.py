@@ -78,14 +78,7 @@ def scan_file(path: str):
     prompt_result = scan_prompt(content)
     
     if prompt_result:
-        for item in prompt_result:
-            if not any(
-                if not any(
-                    f.get("type") == item.get("type")
-                    and f.get("match") == item.get("match")
-                    for f in findings
-                ):
-                    findings.append(item)
+        findings.extend(prompt_result)
 
 
     return findings
