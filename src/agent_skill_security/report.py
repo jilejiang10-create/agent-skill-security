@@ -78,13 +78,17 @@ def generate_report(results: list) -> str:
         
             if isinstance(finding, dict):
         
-                category = (
-                    finding.get("category")
-                    or finding.get("type")
-                    or "unknown"
-                )
-        
-                match = finding.get("match", "")
+            category = (
+                finding.get("category")
+                or finding.get("type")
+                or "unknown"
+            )
+            
+            match = (
+                finding.get("match")
+                or finding.get("pattern")
+                or ""
+            )
         
                 item = f"{category}: {match}"
         
