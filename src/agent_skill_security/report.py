@@ -90,7 +90,7 @@ def generate_report(results: list) -> str:
                 or ""
             )
         
-                item = f"{category}: {match}"
+              item = f"{category}: {match}"
         
                 if item not in seen:
                     seen.add(item)
