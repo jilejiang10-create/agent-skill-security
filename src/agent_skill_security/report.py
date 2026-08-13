@@ -74,30 +74,25 @@ def generate_report(results: list) -> str:
 
         seen = set()
         
-        for finding in data.get("findings", []):
-        
-            if isinstance(finding, dict):
-        
-                category = (
-                    finding.get("category")
-                    or finding.get("type")
-                    or "unknown"
-                )
-            
+        for finding in data.get("findings", []) if isinstance(data, dict) else []:
+
+            category = (
+                finding.get("category")
+                or finding.get("type")
+                or "unknown"
+            )
+
             match = (
                 finding.get("match")
                 or finding.get("pattern")
                 or ""
             )
-        
-              item = f"{category}: {match}"
-        
-                if item not in seen:
-                    seen.add(item)
-        
-                    lines.append(
-                        f"- {item}"
-                    )
+
+            item = f"{category}: {match}"
+
+            lines.append(
+                f"- {item}"
+            )
 
     avg_risk = min(total_risk, 100)
 
