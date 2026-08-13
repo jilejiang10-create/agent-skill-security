@@ -98,8 +98,10 @@ def scan_directory(directory: str):
 
     risk = calculate_risk(results)
 
-
-    return {
-        "findings": results,
-        "risk": risk
+return [
+    {
+        "file": directory,
+        "risk": risk,
+        "findings": results
     }
+]
