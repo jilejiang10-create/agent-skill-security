@@ -85,7 +85,7 @@ def generate_report(results: list) -> str:
             match = (
                 finding.get("match")
                 or finding.get("pattern")
-                or ""
+                or "detected"
             )
 
             item = f"{category}: {match}"
