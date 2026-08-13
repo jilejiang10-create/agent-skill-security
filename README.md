@@ -2,6 +2,9 @@
 
 Open-source security scanner for AI agents, skills, plugins, and automation scripts.
 
+Detect security risks including prompt injection, secret exposure, dangerous code execution, and unsafe network operations.
+
+
 ## Features
 
 - 🔍 Prompt Injection Detection
@@ -25,58 +28,40 @@ Scanner Engine
 Security Rules
       |
       v
-Risk Scoring
+Risk Analyzer
       |
       v
 Security Report
-```
+
 
 
 ## Installation
+
+Clone repository:
 
 ```bash
 git clone https://github.com/jilejiang10-create/agent-skill-security.git
 
 cd agent-skill-security
-
-pip install -e .
 ```
 
+Install dependencies:
+
+```bash
+pip install -r requirements.txt
+```
 
 ## Usage
 
-Scan an AI agent project:
+Run scanner:
 
 ```bash
-python -m agent_skill_security.cli ./your-agent
+python -m agent_skill_security.app
 ```
 
+or
 
-Example output:
+```bash
+python -m agent_skill_security.cli
 
-```text
-Security Report
-
-Risk Level: HIGH
-
-Findings:
-
-- Hardcoded API Key
-- Prompt Injection Risk
-- Dangerous Shell Command
 ```
-
-
-## Roadmap
-
-- Basic scanner
-- Risk scoring
-- Report generator
-- Web dashboard
-- AI security assistant
-- CI/CD integration
-
-
-## License
-
-MIT License
