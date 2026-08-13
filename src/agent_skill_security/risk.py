@@ -19,16 +19,23 @@ def calculate_risk(findings: List[Dict]) -> Dict:
     categories = []
 
 
+    seen_categories = set()
+    
     for item in findings:
-
-        category = item.get("category")
-
-
+    
+        category = (
+            item.get("category")
+            or item.get("type")
+        )
+    
         if category in RISK_WEIGHTS:
-
-            score += RISK_WEIGHTS[category]
-
-            categories.append(category)
+    
+            # 同类型只计算一次
+            if category not in seen_categories:
+                score += RISK_WEIGHTS[category]
+                seen_categories.add(category)
+    
+                categories.append(category)
 
 
 
@@ -36,20 +43,16 @@ def calculate_risk(findings: List[Dict]) -> Dict:
 
 
     if score >= 80:
-
-        level = "critical"
-
-    elif score >= 50:
-
-        level = "high"
-
-    elif score >= 20:
-
-        level = "medium"
-
+        level = "CRITICAL"
+    
+    elif score >= 40:
+        level = "HIGH"
+    
+    elif score >= 15:
+        level = "MEDIUM"
+    
     else:
-
-        level = "low"
+        level = "LOW"
 
 
 
