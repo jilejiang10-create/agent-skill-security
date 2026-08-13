@@ -59,6 +59,7 @@ def scan_file(path: str):
 
             if re.search(pattern, content, re.IGNORECASE):
 
+                if re.search(pattern, content, re.IGNORECASE):
                     if not any(
                         f["category"] == category
                         for f in findings
@@ -70,8 +71,8 @@ def scan_file(path: str):
                                 "severity": "high"
                             }
                         )
-
-                break
+        
+                    break
 
 
     prompt_result = scan_prompt(content)
