@@ -61,9 +61,7 @@ def generate_report(results: list) -> str:
                 f"File: {file_name}"
             )
         
-            lines.append(
-                f"Risk Score: {risk_score}/100"
-            )
+
 
         lines.append(
             f"Risk Score: {risk}/100"
@@ -75,7 +73,12 @@ def generate_report(results: list) -> str:
                 f"- {finding.get('category')}: "
                 f"{finding.get('match')}"
             )
-
+            category = finding.get("category", "unknown")
+            match = finding.get("match", "")
+            
+            lines.append(
+                f"- {category}: {match}"
+            )
 
     avg_risk = min(total_risk, 100)
 
