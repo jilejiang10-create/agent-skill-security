@@ -33,8 +33,14 @@ def generate_report(results: list) -> str:
     lines.append("-" * 40)
 
 
+    total_risk = 0
+    
+    
+    if isinstance(results, dict):
+        results = [results]
+    
+    
     for data in results:
-
         risk = data.get("risk", 0) if isinstance(data, dict) else 0
 
         total_risk += risk
