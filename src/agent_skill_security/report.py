@@ -46,7 +46,8 @@ def generate_report(results: list) -> str:
                 continue
         
             file_name = data.get("file", "unknown")
-        
+            if file_name == "unknown":
+        file_name = data.get("path", "unknown")
             risk = data.get("risk", {})
         
             if isinstance(risk, dict):
@@ -64,7 +65,7 @@ def generate_report(results: list) -> str:
 
 
         lines.append(
-            f"Risk Score: {risk}/100"
+            f"Risk Score: {risk_score}/100"
         )
 
         for finding in data.get("findings", []) if isinstance(data, dict) else []:
@@ -73,7 +74,7 @@ def generate_report(results: list) -> str:
                 f"- {finding.get('category')}: "
                 f"{finding.get('match')}"
             )
-            category = finding.get("category", "unknown")
+            category = finding.get("category") or finding.get("type") or "unknown"
             match = finding.get("match", "")
             
             lines.append(
