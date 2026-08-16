@@ -39,4 +39,5 @@ jobs:
 
       - name: Run tests
         run: |
-          python -m pytest
+          pip install -e .
+          pytest
