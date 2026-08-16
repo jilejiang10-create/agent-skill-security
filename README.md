@@ -4,13 +4,24 @@
 
 An open-source security scanner for AI Agents, Plugins, Skills, and automation scripts.
 
-Agent Skill Security helps developers identify security risks before deploying AI-powered workflows.
+Built to help developers detect security risks in AI agent workflows before deployment.
+
+Agent Skill Security provides automated security analysis for AI-powered applications by detecting prompt injection, secret exposure, unsafe code execution, and risky operations.
+
 
 ## Why This Project
 
-AI Agents and automation tools can execute code, access files, communicate with networks, and process external instructions.
+AI Agents are becoming increasingly powerful. They can:
 
-Without security checks, Agent Skills may introduce:
+- Execute code
+- Call external tools
+- Access local files
+- Send network requests
+- Process external instructions
+
+These capabilities introduce new security challenges.
+
+Without proper security checks, Agent Skills may introduce:
 
 - Prompt injection attacks
 - Secret and API key exposure
@@ -18,9 +29,13 @@ Without security checks, Agent Skills may introduce:
 - Unsafe filesystem operations
 - Unauthorized network requests
 
-Agent Skill Security provides an automated security layer for AI Agent ecosystems.
+Agent Skill Security provides a lightweight security layer designed for the AI Agent ecosystem.
+
+It helps developers evaluate security risks before deploying AI-powered workflows.
+
 
 ## Features
+
 
 ### Security Detection
 
@@ -33,6 +48,7 @@ Detects:
 - Network request risks
 - Filesystem modification risks
 
+
 ### Risk Assessment
 
 The scanner provides:
@@ -40,6 +56,7 @@ The scanner provides:
 - Risk score calculation
 - Severity classification
 - Security report generation
+
 
 Risk levels:
 
@@ -50,6 +67,7 @@ Risk levels:
 | 15-39 | Medium |
 | 0-14 | Low |
 
+
 ### Multiple Interfaces
 
 Supported:
@@ -59,7 +77,21 @@ Supported:
 - JSON Security Reports
 - HTML Reports
 
+
+## Detection Categories
+
+
+| Category | Description |
+|---|---|
+| Prompt Injection | Detects malicious instructions attempting to override agent behavior |
+| Secret Exposure | Finds leaked API keys and credentials |
+| Dangerous Commands | Detects unsafe shell execution |
+| File Operations | Identifies risky filesystem modifications |
+| Network Access | Analyzes external request risks |
+
+
 ## Architecture
+
 
 ```
 agent-skill-security
@@ -83,7 +115,9 @@ agent-skill-security
     Automated security tests
 ```
 
+
 ## Installation
+
 
 Clone repository:
 
@@ -93,15 +127,19 @@ git clone https://github.com/jilejiang10-create/agent-skill-security.git
 cd agent-skill-security
 ```
 
+
 Install dependencies:
 
 ```bash
 pip install -r requirements.txt
 ```
 
+
 ## Usage
 
+
 ### Streamlit Dashboard
+
 
 Run:
 
@@ -109,13 +147,16 @@ Run:
 streamlit run src/agent_skill_security/app.py
 ```
 
+
 Open:
 
 ```
 http://localhost:8501
 ```
 
+
 ### Command Line
+
 
 Example:
 
@@ -123,7 +164,9 @@ Example:
 python -m agent_skill_security.cli ./your-agent-project
 ```
 
+
 ## Example Detection
+
 
 Example dangerous code:
 
@@ -132,6 +175,7 @@ import os
 
 os.system("rm -rf /")
 ```
+
 
 Detected:
 
@@ -142,7 +186,9 @@ Finding:
 dangerous_shell
 ```
 
+
 ## Testing
+
 
 Run:
 
@@ -150,13 +196,16 @@ Run:
 python -m pytest
 ```
 
+
 Current test status:
 
 ```
 7 passed
 ```
 
+
 ## Security Scope
+
 
 This project focuses on security analysis for:
 
@@ -166,7 +215,17 @@ This project focuses on security analysis for:
 - Developer Tools
 - LLM-based Applications
 
+
+## Open Source Value
+
+
+Agent Skill Security helps the open-source AI ecosystem by providing developers with a practical security tool for evaluating AI Agents, Plugins, and Skills.
+
+As AI agent adoption grows, security validation becomes an important part of responsible AI development.
+
+
 ## Roadmap
+
 
 Future improvements:
 
@@ -176,7 +235,9 @@ Future improvements:
 - Supply-chain security checks
 - Security rule marketplace
 
+
 ## Contributing
+
 
 Contributions are welcome.
 
@@ -187,7 +248,9 @@ Please read:
 
 before submitting changes.
 
+
 ## License
+
 
 MIT License
 
