@@ -1,43 +1,45 @@
-# Contributing
-
-Thanks for your interest in contributing to agent-skill-security.
-
-## How to Contribute
-
-1. Fork the repository.
-2. Create a feature or fix branch.
-3. Make focused changes.
-4. Add or update tests when applicable.
-5. Open a pull request with a clear description.
-
-## Contribution Areas
-
-Contributions are welcome for:
-
-- New security detection rules
-- AI agent and skill security checks
-- Prompt injection detection
-- Credential leak detection
-- Shell and file-system risk detection
-- Network request analysis
-- Dependency and supply-chain checks
-- Documentation and tests
-
-## Security
-
-Do not include real API keys, credentials, malware, or destructive commands in contributions.
-
-Use safe test fixtures and clearly mark simulated malicious examples.
-
-For security vulnerabilities, follow the repository SECURITY.md policy instead of opening a public issue.
-
-## Pull Requests
-
-Pull requests should explain:
-
-- What problem is being solved
-- What files or detection rules changed
-- How the change was tested
-- Any security implications
-
-Maintainers may request changes before merging.
+Contributing to Agent Skill Security
+Thank you for your interest in contributing to Agent Skill Security.
+This project welcomes contributions from developers, security researchers, and AI ecosystem builders.
+Ways to Contribute
+You can contribute by:
+Reporting security issues
+Fixing bugs
+Improving detection rules
+Adding new security checks
+Improving documentation
+Adding tests
+Development Setup
+Clone the repository:
+git clone https://github.com/jilejiang10-create/agent-skill-security.git
+cd agent-skill-security
+Install dependencies:
+pip install -r requirements.txt
+Run tests:
+pytest
+Pull Request Guidelines
+Before submitting a pull request:
+Keep changes focused.
+Add tests for new functionality.
+Update documentation when necessary.
+Ensure all CI checks pass.
+Pull requests should include:
+A clear description of changes.
+The motivation behind the change.
+Testing information.
+Issue Guidelines
+When opening an issue, please include:
+Description of the problem.
+Steps to reproduce.
+Expected behavior.
+Environment information.
+Security Issues
+Please do not disclose security vulnerabilities publicly.
+Use the private vulnerability reporting channel:
+https://github.com/jilejiang10-create/agent-skill-security/security/advisories/new
+Code Style
+Please follow:
+Clear naming conventions.
+Readable Python code.
+Small and focused commits.
+Thank you for helping improve Agent Skill Security.
