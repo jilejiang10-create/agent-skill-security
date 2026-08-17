@@ -1,112 +1,91 @@
-from typing import List, Dict
+"""Canonical risk scoring for scanner findings."""
+
+from typing import Dict, Mapping, Sequence
+
+from agent_skill_security.rules import RULES
 
 
-RISK_WEIGHTS = {
+CATEGORY_ALIASES = {
+    "secret": "secret_exposure",
+    "dangerous_command": "dangerous_shell",
+    "filesystem_write": "file_system_write",
+    "network_access": "network_request",
+}
 
-    # 密钥泄露
-    "secret_exposure": 35,
+CATEGORY_TO_GROUP = {rule.category: rule.risk_group for rule in RULES}
 
-    # 明文 API Key
-    "hardcoded_api_key": 35,
-
-    # 危险命令执行
+# Weights are assigned to risk groups, not individual rule aliases. This means
+# two representations of the same underlying secret exposure cannot add 70.
+RISK_GROUP_WEIGHTS = {
+    "secrets": 35,
     "dangerous_shell": 30,
-
-    # 网络请求风险
     "network_request": 15,
-
-    # 文件写入风险
     "file_system_write": 15,
-
-    # Prompt 注入
     "prompt_injection": 25,
 }
 
+# Backwards-compatible exported mapping for callers of the original API.
+RISK_WEIGHTS = dict(RISK_GROUP_WEIGHTS)
+RISK_WEIGHTS.update(
+    {
+        "secret_exposure": 35,
+        "hardcoded_api_key": 35,
+    }
+)
 
 
-def calculate_risk(findings: List[Dict]) -> Dict:
-    """
-    Calculate AI agent security risk score.
-    
-    Returns:
-        risk_score:
-            0-100 security risk score
+def risk_level_for_score(score: int) -> str:
+    """Map a score to the public thresholds documented in README.md."""
 
-        risk_level:
-            LOW
-            MEDIUM
-            HIGH
-            CRITICAL
-    """
+    bounded_score = max(0, min(int(score), 100))
+    if bounded_score >= 80:
+        return "CRITICAL"
+    if bounded_score >= 40:
+        return "HIGH"
+    if bounded_score >= 15:
+        return "MEDIUM"
+    return "LOW"
 
+
+def calculate_risk(findings: Sequence[Mapping[str, object]]) -> Dict[str, object]:
+    """Calculate one deterministic risk result from normalized findings."""
 
     score = 0
-
-    categories = []
-
+    issues = []
+    risk_groups = []
     seen_categories = set()
-
+    seen_groups = set()
 
     for item in findings:
-
-        category = (
-            item.get("category")
-            or item.get("type")
-        )
-
-
-        if not category:
+        raw_category = item.get("category") or item.get("type")
+        if not raw_category:
             continue
 
+        category = CATEGORY_ALIASES.get(str(raw_category), str(raw_category))
+        finding_group = item.get("risk_group")
+        group = (
+            finding_group
+            if isinstance(finding_group, str)
+            and finding_group in RISK_GROUP_WEIGHTS
+            else CATEGORY_TO_GROUP.get(category)
+        )
+        if group is None:
+            continue
 
+        if category not in seen_categories:
+            seen_categories.add(category)
+            issues.append(category)
 
-        if category in RISK_WEIGHTS:
+        if group not in seen_groups:
+            seen_groups.add(group)
+            risk_groups.append(group)
+            score += RISK_GROUP_WEIGHTS[group]
 
-
-            # 同类风险只计算一次
-            if category not in seen_categories:
-
-                score += RISK_WEIGHTS[category]
-
-                seen_categories.add(category)
-
-                categories.append(category)
-
-
-
-    score = min(score,100)
-
-
-
-    if score >= 80:
-
-        level = "CRITICAL"
-
-
-    elif score >= 50:
-
-        level = "HIGH"
-
-
-    elif score >= 20:
-
-        level = "MEDIUM"
-
-
-    else:
-
-        level = "LOW"
-
-
-
+    score = min(score, 100)
     return {
-
         "risk_score": score,
-
-        "risk_level": level,
-
-        "issues": categories,
-
-        "total_findings": len(findings)
-
+        "risk_level": risk_level_for_score(score),
+        "issues": issues,
+        "risk_groups": risk_groups,
+        "total_findings": len(findings),
     }

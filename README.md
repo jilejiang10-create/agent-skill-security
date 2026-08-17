@@ -131,7 +131,13 @@ cd agent-skill-security
 Install dependencies:
 
 ```bash
-pip install -r requirements.txt
+python -m pip install -e ".[web]"
+```
+
+For development and tests:
+
+```bash
+python -m pip install -e ".[web,test]"
 ```
 
 
@@ -147,6 +153,24 @@ Run:
 streamlit run src/agent_skill_security/app.py
 ```
 
+The dashboard only scans inside its configured root directory. By default this
+is the directory where Streamlit is started. Administrators can set an explicit
+root before launch:
+
+```bash
+AGENT_SKILL_SECURITY_SCAN_ROOT=/srv/projects streamlit run src/agent_skill_security/app.py
+```
+
+Targets entered in the dashboard are resolved against that root. Escaping
+paths and external symbolic links are rejected or skipped. To protect the Web
+process from resource exhaustion, it scans at most 10,000 files, 5 MiB per
+file, and 5,000 findings per file by default. Administrators can change these
+limits with `AGENT_SKILL_SECURITY_MAX_FILES`,
+`AGENT_SKILL_SECURITY_MAX_FILE_SIZE`, and
+`AGENT_SKILL_SECURITY_MAX_FINDINGS_PER_FILE`. Truncation is explicitly shown
+in the report. CLI scans remain unlimited unless limits are passed through the
+Python API.
+
 
 Open:
 
@@ -161,8 +185,11 @@ http://localhost:8501
 Example:
 
 ```bash
-python -m agent_skill_security.cli ./your-agent-project
+agent-security ./your-agent-project
 ```
+
+The CLI remains a local tool and can scan any directory the current user can
+read. It is not restricted by the Web dashboard's scan root.
 
 
 ## Example Detection
@@ -180,7 +207,8 @@ os.system("rm -rf /")
 Detected:
 
 ```
-Risk Level: HIGH
+Risk Score: 30/100
+Risk Level: MEDIUM
 
 Finding:
 dangerous_shell
@@ -197,11 +225,30 @@ python -m pytest
 ```
 
 
-Current test status:
+The regression suite covers report injection, secret redaction, path boundary
+enforcement, risk consistency, rule compatibility, and all output formats.
+The CI self-scan transparently suppresses only four rule-definition literals;
+each suppression is bound to its exact file, rule, line, column, and line hash.
 
+
+## Report Data Contract
+
+Every interface consumes the same scan result. A result contains the target,
+scan-completeness flag, files seen/scanned, skipped and truncated files, scan
+errors, normalized findings, total issue count, and one canonical risk object.
+The following invariant is tested:
+
+```text
+total_issues == len(findings) == risk.total_findings
 ```
-7 passed
-```
+
+Secret evidence is replaced with `[REDACTED]` before it enters the result, so it
+cannot be exposed by the CLI, Streamlit, JSON, or HTML report. HTML report text
+is escaped and protected with a restrictive Content Security Policy.
+
+If coverage is limited by resource bounds, skipped files, truncation, or read
+errors, every interface reports `SCAN INCOMPLETE`; a `LOW` observed score is
+never presented as a complete clean scan in that case.
 
 
 ## Security Scope

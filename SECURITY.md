@@ -16,7 +16,9 @@ The project focuses on detecting:
 - Suspicious network requests
 - Risky file system operations
 - Potential prompt injection patterns
-- Unsafe third-party dependencies
+
+Dependency and supply-chain analysis is planned work and is not currently a
+supported detection category.
 
 
 ## Supported Versions
@@ -31,6 +33,13 @@ Currently supported versions:
 ## Reporting a Vulnerability
 
 If you discover a security issue, please do not create a public issue.
+
+Use GitHub's private vulnerability reporting form:
+
+https://github.com/jilejiang10-create/agent-skill-security/security/advisories/new
+
+The repository must keep private vulnerability reporting enabled so this form
+remains available. Do not include vulnerability details in a public issue.
 
 Please report vulnerabilities privately with:
 
