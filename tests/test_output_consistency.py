@@ -243,3 +243,25 @@ def test_self_scan_fails_closed_when_coverage_is_incomplete():
         },
         [],
     )
+
+
+def test_self_scan_excludes_generated_distribution_metadata(tmp_path):
+    namespace = runpy.run_path(str(PROJECT_ROOT / "scripts" / "self_scan.py"))
+    package_root = namespace["_self_scan_root"](tmp_path)
+    package_root.mkdir(parents=True)
+    (package_root / "module.py").write_text("VALUE = 1\n", encoding="utf-8")
+
+    metadata_root = tmp_path / "src" / "agent_skill_security.egg-info"
+    metadata_root.mkdir()
+    (metadata_root / "PKG-INFO").write_text(
+        "Metadata-Version: 2.4\n"
+        "Name: agent-skill-security\n"
+        "Author-email: maintainer@example.test\n"
+        "Description: os.system( is shown only as documentation\n",
+        encoding="utf-8",
+    )
+
+    result = scan_directory(str(package_root))
+    assert result["scan_complete"] is True
+    assert result["files_scanned"] == 1
+    assert result["findings"] == []

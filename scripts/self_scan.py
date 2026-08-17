@@ -11,34 +11,40 @@ from agent_skill_security.scanner import scan_directory
 
 EXPECTED_RULE_DEFINITION_MATCHES = {
     (
-        "agent_skill_security/rules.py",
+        "rules.py",
         "prompt.jailbreak",
         133,
         17,
         "007148df863c4c1dd7fc4f26807925c2d018e5c776eb43d65fcf78477807f1ef",
     ),
     (
-        "agent_skill_security/rules.py",
+        "rules.py",
         "prompt.jailbreak",
         136,
         11,
         "a4d269d2549197bcfcc0f8a3f0629048feccf9b4dd65d0aba12de8fe8c17ac64",
     ),
     (
-        "agent_skill_security/rules.py",
+        "rules.py",
         "network.urllib",
         194,
         18,
         "3a672c5f31e5e4f41e4df339297eec71227b4e2b3295a5f5541af24180e3ab99",
     ),
     (
-        "agent_skill_security/rules.py",
+        "rules.py",
         "network.urllib",
         197,
         11,
         "65e434700bbe7a428aeeea66c2e920e3e235e957230226998bcb543d2dbbcbac",
     ),
 }
+
+
+def _self_scan_root(project_root: Path) -> Path:
+    """Return the importable package, excluding generated distribution metadata."""
+
+    return project_root / "src" / "agent_skill_security"
 
 
 def _fingerprint(finding, source_root: Path):
@@ -88,7 +94,9 @@ def _should_fail(result, missing) -> bool:
 
 def main() -> int:
     project_root = Path(__file__).resolve().parents[1]
-    result, suppressed, missing = build_self_scan_result(project_root / "src")
+    result, suppressed, missing = build_self_scan_result(
+        _self_scan_root(project_root)
+    )
     print(generate_report(result))
     print("Reviewed rule-definition matches suppressed: {}".format(len(suppressed)))
     for finding, fingerprint in suppressed:
