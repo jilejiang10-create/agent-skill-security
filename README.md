@@ -1,12 +1,24 @@
 # Agent Skill Security
 
+A security scanner for AI Agent Skills, Plugins, Tools and Automation Scripts.
+
+Detect security risks including:
+
+- Prompt Injection
+- Secret Exposure
+- Dangerous Commands
+- Unsafe Network Requests
+- File System Manipulation
+
+Designed for developers building secure AI agent ecosystems.
+
 ![Security Scan](https://github.com/jilejiang10-create/agent-skill-security/actions/workflows/security-scan.yml/badge.svg)
 
-An open-source security scanner for AI Agents, Plugins, Skills, and automation scripts.
+![Release](https://img.shields.io/github/v/release/jilejiang10-create/agent-skill-security)
+![Python](https://img.shields.io/badge/python-3.9+-blue)
+![License](https://img.shields.io/github/license/jilejiang10-create/agent-skill-security)
 
-Built to help developers detect security risks in AI agent workflows before deployment.
-
-Agent Skill Security provides automated security analysis for AI-powered applications by detecting prompt injection, secret exposure, unsafe code execution, and risky operations.
+---
 
 
 ## Why This Project
