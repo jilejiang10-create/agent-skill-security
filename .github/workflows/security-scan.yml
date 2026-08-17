@@ -6,9 +6,13 @@ on:
       - main
   pull_request:
 
+permissions:
+  contents: read
+
 jobs:
   security-scan:
     runs-on: ubuntu-latest
+    timeout-minutes: 15
 
     steps:
       - name: Checkout repository
@@ -21,9 +25,16 @@ jobs:
 
       - name: Install dependencies
         run: |
-          pip install -r requirements.txt
-          pip install pytest
-      
-      - name: Run tests
+          python -m pip install --upgrade pip
+          python -m pip install -e ".[web,test]"
+
+      - name: Run security regression tests
         run: |
-          PYTHONPATH=src pytest
+          python -m pytest --strict-markers \
+            tests/test_security_regressions.py \
+            tests/test_scan_boundaries.py \
+            tests/test_output_consistency.py
+
+      - name: Self-scan scanner source
+        run: |
+          python scripts/self_scan.py

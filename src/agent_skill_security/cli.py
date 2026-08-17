@@ -1,8 +1,10 @@
 import argparse
 from pathlib import Path
 
-from .scanner import scan_directory
+from . import __version__
 from .report import generate_report
+from .rules import safe_display_text
+from .scanner import ScanPathError, scan_directory
 
 
 
@@ -18,6 +20,12 @@ def main():
         nargs="?",
         default=".",
         help="Target directory to scan"
+    )
+
+    parser.add_argument(
+        "--version",
+        action="version",
+        version="%(prog)s {}".format(__version__),
     )
 
 
@@ -50,13 +58,19 @@ def main():
     print()
 
     print(
-        f"Scanning: {target}"
+        "Scanning: {}".format(safe_display_text(target))
     )
 
 
-    results = scan_directory(
-        str(target)
-    )
+    try:
+        results = scan_directory(
+            str(target)
+        )
+    except ScanPathError as exc:
+        print(
+            "Scanner error: {}".format(exc)
+        )
+        return
 
 
     report = generate_report(
