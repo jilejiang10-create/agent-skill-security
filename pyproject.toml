@@ -1,0 +1,59 @@
+[build-system]
+requires = [
+    "setuptools>=61"
+]
+build-backend = "setuptools.build_meta"
+
+
+
+[project]
+
+name = "agent-skill-security"
+
+version = "1.0.0"
+
+description = "Open-source security scanner for AI agents, skills, plugins and automation scripts"
+
+authors = [
+    {name="jilejiang10-create"}
+]
+
+
+readme = "README.md"
+
+
+requires-python = ">=3.9"
+
+
+keywords = [
+    "ai-security",
+    "llm-security",
+    "agent-security",
+    "prompt-injection",
+    "cybersecurity",
+    "security-scanner"
+]
+
+
+classifiers = [
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.9",
+    "Programming Language :: Python :: 3.10",
+    "Programming Language :: Python :: 3.11",
+    "License :: OSI Approved :: MIT License",
+    "Operating System :: OS Independent"
+]
+
+
+
+[project.scripts]
+
+agent-security = "agent_skill_security.cli:main"
+
+
+
+[tool.setuptools.packages.find]
+
+where = [
+    "src"
+]
