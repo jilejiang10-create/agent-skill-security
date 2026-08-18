@@ -1,536 +1,402 @@
 # Agent Skill Security
 
+Open-source security scanner for AI Agents, Agent Skills, Plugins, and automation workflows.
 
-Open-source security scanner for AI Agents, Plugins, Skills, and Automation Scripts.
+Agent Skill Security helps developers identify security risks before allowing AI Agents to execute external skills, tools, or automation scripts.
 
+It detects prompt injection attacks, secret exposure, unsafe code execution, risky network requests, and dangerous filesystem operations.
 
-Agent Skill Security helps developers detect security risks before deploying AI-powered applications.
-
-
-
-==================================================
-
-Overview
-
-==================================================
+The goal of this project is to improve AI Agent security by providing automated security analysis before deployment.
 
 
-AI Agents are becoming increasingly powerful.
+---
 
+# Why Agent Security Matters
+
+Modern AI Agents are becoming increasingly powerful.
 
 They can:
 
-
 - Execute code
-
-- Access files
-
+- Access local files
 - Call external APIs
-
-- Interact with external networks
-
-
-
-These capabilities introduce security risks.
+- Use third-party tools
+- Run automation workflows
 
 
-Agent Skill Security provides automated security scanning to identify dangerous behaviors before deployment.
+These capabilities introduce new security risks.
+
+Traditional application security tools are often not designed for AI Agent specific threats such as:
+
+- Prompt injection
+- Malicious Agent Skills
+- Unsafe tool execution
+- Hidden instructions
+- Credential leakage
 
 
+Agent Skill Security focuses on securing the emerging AI Agent ecosystem.
 
 
+---
 
-==================================================
-
-Security Risks Detected
-
-==================================================
+# Security Risks Detected
 
 
-
-1. Prompt Injection Detection
-
+## 1. Prompt Injection Detection
 
 Detect malicious instructions that attempt to manipulate AI Agent behavior.
 
+Examples:
+
+- Ignore previous instructions
+- Reveal system prompt
+- Bypass security rules
+- Override developer instructions
+- Attempt jailbreak behaviors
+
+
+---
+
+## 2. Secret Exposure Detection
+
+Detect exposed sensitive information.
+
+Detected examples:
+
+- API Keys
+- Secret Keys
+- Hardcoded Credentials
+- Authentication Tokens
+- Private configuration values
+
+
+---
+
+## 3. Dangerous Code Execution Detection
+
+Detect potentially unsafe execution patterns.
 
 Examples:
 
-
-- Ignore previous instructions
-
-- Reveal system prompt
-
-- Bypass security rules
-
-- Override developer instructions
-
-
-
-
-
-2. Secret Exposure Detection
-
-
-Detect exposed sensitive information:
-
-
-- API Keys
-
-- Secret Keys
-
-- Hardcoded Credentials
-
-- Tokens
-
-
-
-
-
-3. Dangerous Code Execution Detection
-
-
-Detect potentially unsafe operations:
-
-
 - os.system()
-
 - subprocess execution
-
 - Shell commands
-
 - Destructive commands
+- Unsafe automation actions
 
 
+---
 
+## 4. Unsafe Network Request Detection
 
+Detect risky external communication.
 
-4. Unsafe Network Request Detection
-
-
-Detect risky external communication:
-
+Examples:
 
 - requests
-
 - httpx
-
 - urllib
-
 - External API calls
+- Untrusted network connections
 
 
+---
 
+## 5. File System Risk Detection
 
+Detect dangerous filesystem operations.
 
-5. File System Risk Detection
-
-
-Detect dangerous file operations:
-
+Examples:
 
 - File deletion
-
 - Recursive removal
-
 - Unauthorized writing
+- Potential filesystem damage
 
 
+---
+
+# Features
 
 
+## Security Scanner
+
+Automatically scans project files and detects suspicious security patterns.
 
 
-==================================================
-
-Features
-
-==================================================
-
-
-
-Security Scanner
-
-
-Automatically scans project files and detects suspicious patterns.
-
-
-
-
-
-
-Risk Score Engine
-
+## Risk Score Engine
 
 Calculates security risk based on detected issues.
 
 
-Risk Level:
+Risk Levels:
 
-
+```
 0-19     LOW
-
-
 20-49    MEDIUM
-
-
 50-79    HIGH
-
-
 80-100   CRITICAL
+```
 
 
-
-
-
-Security Report Generation
-
+## Security Report Generation
 
 Supports:
 
-
 - Text Report
-
 - HTML Report
-
 - JSON Report
 
 
+## Streamlit Security Dashboard
 
-
-
-
-Streamlit Security Dashboard
-
-
-Provides visual interface:
-
+Provides a visual security interface:
 
 - Scan projects
-
-- View findings
-
+- View security findings
 - Check risk score
-
-- View security level
-
+- View risk level
 - Export reports
 
 
+---
+
+# AI Agent Security Use Cases
 
 
+Agent Skill Security can help secure:
+
+- AI Agent frameworks
+- Agent Skills
+- LLM Plugins
+- Tool calling workflows
+- Automation scripts
+- Developer AI assistants
 
 
-==================================================
+Typical usage scenarios:
 
-Architecture
+- Reviewing third-party Agent Skills before installation
+- Scanning automation scripts before execution
+- Detecting malicious instructions in AI workflows
+- Preventing accidental credential exposure
+- Improving AI Agent deployment security
 
-==================================================
+
+---
+
+# Architecture
 
 
-
+```
 Agent Skill Security
 
-
-|
-
+│
 ├── Scanner
-
 │
-
 ├── File Scanner
-
 │
-
 ├── Pattern Detection
-
 │
-
 └── Prompt Analysis
-
-
-|
-
+│
 ├── Risk Engine
-
 │
-
 ├── Risk Calculation
-
 │
-
 └── Risk Classification
-
-
-|
-
+│
 ├── Report System
-
 │
-
 ├── Text Report
-
 │
-
 ├── HTML Report
-
 │
-
 └── JSON Report
-
-
-|
-
+│
 └── Dashboard
 
     └── Streamlit UI
+```
 
 
+---
 
-
-
-
-==================================================
-
-Installation
-
-==================================================
-
+# Installation
 
 
 Clone repository:
 
-
-
+```bash
 git clone https://github.com/jilejiang10-create/agent-skill-security.git
-
-
+```
 
 
 Enter project directory:
 
-
-
+```bash
 cd agent-skill-security
-
-
+```
 
 
 Install dependencies:
 
-
-
+```bash
 pip install -r requirements.txt
+```
 
 
+---
+
+# Usage
 
 
+## Start Security Dashboard
 
 
-==================================================
+Run:
 
-Usage
-
-==================================================
-
-
-
-Start Dashboard:
-
-
-
-streamlit run src/app.py
-
-
+```bash
+streamlit run src/agent_skill_security/app.py
+```
 
 
 Open browser:
 
-
-
+```
 http://localhost:8501
+```
 
 
+---
+
+## Command Line Scanner
 
 
+Run:
+
+```bash
+agent-scan target_path
+```
 
 
-Command Line Scanner:
+Example:
+
+```bash
+agent-scan tests/malicious_samples
+```
 
 
+---
 
-python -m agent_skill_security target_path
-
-
-
+# Project Structure
 
 
-
-==================================================
-
-Project Structure
-
-==================================================
-
-
-
+```
 agent-skill-security
 
-
-├── src
-
+├── .github
 │
-
-└── agent_skill_security
-
-    │
-
-    ├── scanner.py
-
-    │
-
-    ├── risk.py
-
-    │
-
-    ├── report.py
-
-    │
-
-    ├── json_export.py
-
-    │
-
-    └── app.py
-
-
+├── src
+│   └── agent_skill_security
+│       ├── scanner.py
+│       ├── rules.py
+│       ├── risk.py
+│       ├── report.py
+│       ├── cli.py
+│       └── app.py
+│
 ├── tests
-
-
+│
 ├── docs
-
-
+│
 ├── SECURITY.md
-
-
+│
+├── CONTRIBUTING.md
+│
 ├── pyproject.toml
-
-
+│
+├── requirements.txt
+│
 └── README.md
+```
 
 
+---
 
-
-
-
-==================================================
-
-Security Philosophy
-
-==================================================
-
+# Security Philosophy
 
 
 Agent Skill Security follows these principles:
 
 
 - Detect before execution
-
 - Minimize AI Agent permissions
-
 - Protect sensitive information
-
+- Validate external tools and skills
 - Improve AI automation safety
 
 
+---
 
-
-
-
-==================================================
-
-Roadmap
-
-==================================================
-
+# Roadmap
 
 
 Future improvements:
 
 
 - More AI Agent security rules
-
 - LLM behavior analysis
-
 - Plugin permission analysis
-
 - CI/CD security integration
-
 - Vulnerability database integration
+- Advanced Agent behavior monitoring
 
 
+---
 
-
-
-
-==================================================
-
-Contributing
-
-==================================================
-
+# Contributing
 
 
 Contributions are welcome.
-
 
 
 You can contribute:
 
 
 - Bug reports
-
 - Security improvements
-
 - New detection rules
-
 - Feature requests
+- Documentation improvements
 
 
+Please read:
+
+```
+CONTRIBUTING.md
+```
 
 
+---
 
-
-==================================================
-
-License
-
-==================================================
-
+# License
 
 
 MIT License
 
 
+---
 
-
-
-
-==================================================
-
-Author
-
-==================================================
-
+# Author
 
 
 Created by:
 
-
-jilejiang10-create
-
+**jilejiang10-create**
 
 
 GitHub:
-
 
 https://github.com/jilejiang10-create/agent-skill-security
